@@ -35,13 +35,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get("/api/characters", (req, res) => {
-  res.status(200).json(characters);
+  const id = req.query.id;
+  if (id)
+    if (characters[+id]) res.status(200).json(characters[+id]);
+    else res.status(404).json({ message: "Character not found" });
+  else res.status(200).json(Object.values(characters));
 });
 
-app.get("/api/characters?:id", (req, res) => {
-  const id = +req.params.id;
-  if (characters[id]) res.status(200).json(characters[id]);
-  else res.status(404);
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
-
-module.exports.handler = serverless(app);
+//module.exports.handler = serverless(app);
