@@ -42,7 +42,4 @@ app.get("/api/characters", (req, res) => {
   else res.status(200).json(Object.values(characters));
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
-//module.exports.handler = serverless(app);
+module.exports.handler = serverless(app);
